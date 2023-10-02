@@ -9,7 +9,7 @@
                 <!--begin::Wrapper-->
                 <div class="d-flex flex-center flex-column-fluid pb-15 pb-lg-20">
                     <!--begin::Form-->
-                    <form action="{{ url('admin-reset-password') }}" method="POST" class="form w-100" novalidate="novalidate"
+                    <form action="{{ url('admin/reset-password') }}" method="POST" class="form w-100" novalidate="novalidate"
                         id="kt_new_password_form"
                         data-kt-redirect-url="../../demo1/dist/authentication/layouts/creative/sign-in.html" action="#">
                         @csrf

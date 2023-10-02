@@ -56,7 +56,7 @@
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 <!--end::Indicator progress-->
                             </button>
-                            <a href="{{route('login') }}" class="btn btn-light">Cancel</a>
+                            <a href="{{route('admin.login') }}" class="btn btn-light">Cancel</a>
                         </div>
                         <!--end::Actions-->
                     </form>

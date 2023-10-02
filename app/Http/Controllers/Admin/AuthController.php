@@ -53,17 +53,17 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|exists:admins,email',
         ]);
-        $exists = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+        $exists = DB::table('password_resets')->where('email', $request->email)->first();
         if ($exists) {
             return back()->with('error', 'Reset Password link has been already sent');
         } else {
             $token = Str::random(30);
-            DB::table('password_reset_tokens')->insert([
+            DB::table('password_resets')->insert([
                 'email' => $request->email,
                 'token' => $token,
             ]);
 
-            $data['url'] = url('change_password', $token);
+            $data['url'] = url('admin/change_password', $token);
             Mail::to($request->email)->send(new ForgotPassword($data));
             return back()->with('success', 'Reset Password Link Send to your mail Successfully');
         }
@@ -71,7 +71,7 @@ class AuthController extends Controller
     public function change_password($id)
     {
 
-        $user = DB::table('password_reset_tokens')->where('token', $id)->first();
+        $user = DB::table('password_resets')->where('token', $id)->first();
 
         if (isset($user)) {
             return view('admin.auth.resetPassword', compact('user'));
@@ -89,7 +89,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ];
         if (Admin::where('email', $request->email)->update($tags_data)) {
-            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            DB::table('password_resets')->where('email', $request->email)->delete();
             return redirect('admin/login')->with('success','Password Reset Successfully');
         }
 
